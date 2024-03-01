@@ -1,0 +1,7 @@
+---
+- name: Create OS info files
+  hosts: vms
+  gather_facts: yes
+  roles:
+    - create_os_info_file
+
