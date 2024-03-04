@@ -1,5 +1,5 @@
 ---
-- name: Gether Os Facts
+- name: Gather Os Facts
   hosts: my_vms
   gather_facts: true
   
@@ -12,9 +12,18 @@
       debug:
         var: ansible_facts.user_id
       
-    
     - name: Save Os Details
       copy:
         content: "{{ ansible_facts }}"
         dest: "/{{ ansible_facts.user_dir }}/{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version}}.txt"
+      when: 
+        - ansible_facts.os_family == 'Debian' or ansible_facts.os_family == 'RedHat'
       
+      
+    - name: Save Windows OS Details
+      win_copy:
+        content: "{{ ansible_facts }}"
+        dest: "C:\\Users\\{{ ansible_facts.user_id }}\\{{ ansible_facts.os_family }}_{{ ansible_facts.distribution_version}}.txt"
+      when: ansible_facts.os_family == 'Windows'
+      
+
