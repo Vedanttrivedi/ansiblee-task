@@ -1,5 +1,0 @@
----
-- name: Set OS facts based on distribution
-  set_fact:
-    os_name: "{{ ansible_distribution }}"
-
